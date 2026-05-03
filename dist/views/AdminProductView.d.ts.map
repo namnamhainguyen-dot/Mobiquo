@@ -1,0 +1,1 @@
+{"version":3,"file":"AdminProductView.d.ts","sourceRoot":"","sources":["../../src/views/AdminProductView.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,uBAAuB,CAAC;AACtD,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,sBAAsB,CAAC;AAEpD,qBAAa,gBAAgB;IACzB;;;;OAIG;IACH,cAAc,CAAC,QAAQ,EAAE,OAAO,EAAE,EAAE,UAAU,EAAE,QAAQ,EAAE,EAAE,MAAM,GAAE,GAAG,EAAO,GAAG,MAAM;CAoD1F"}

@@ -1,0 +1,227 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Bàn phím cơ không dây AULA F75 trắng xanh dương gradient",
+      "price": 1490000,
+      "image": "Bàn phím cơ không dây AULA F75 trắng xanh dương gradient.png",
+      "description": "3 mode có dây Type-C & không dây 2.4G & Bluetooth",
+      "category_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Bàn phím cơ không dây Aula S100 Pro xanh dương trắng tím",
+      "price": 790000,
+      "image": "Bàn phím cơ không dây Aula S100 Pro xanh dương trắng tím.png",
+      "description": "3 mode có dây Type-C & không dây 2.4G & BT",
+      "category_id": "1"
+    },
+    {
+      "id": "3",
+      "name": "Bàn phím không dây Philips SPK6338BS",
+      "price": 560000,
+      "image": "Bàn phím không dây Philips SPK6338BS.png",
+      "description": "Không dây 2.4GHz",
+      "category_id": "1"
+    },
+    {
+      "id": "4",
+      "name": "Bàn phím không dây Aula F87 Đen Cam",
+      "price": 1250000,
+      "image": "Bàn phím không dây Aula F87 Đen Cam.png",
+      "description": "Type-C",
+      "category_id": "1"
+    },
+    {
+      "id": "5",
+      "name": "Chuột Gaming Logitech G502 Hero",
+      "price": 779000,
+      "image": "Chuột Gaming Logitech G502 Hero.png",
+      "description": "Dây USB",
+      "category_id": "2"
+    },
+    {
+      "id": "6",
+      "name": "Chuột không dây Logitech MX Master 2S",
+      "price": 1090000,
+      "image": "Chuột không dây Logitech MX Master 2S.png",
+      "description": "Bluetooth",
+      "category_id": "2"
+    },
+    {
+      "id": "7",
+      "name": "Chuột Gaming không dây Logitech G304 Lightspeed",
+      "price": 725000,
+      "image": "Chuột Gaming không dây Logitech G304 Lightspeed.png",
+      "description": "LIGHTSPEED không dây",
+      "category_id": "2"
+    },
+    {
+      "id": "8",
+      "name": "Chuột có dây Gaming Logitech G102 LightSync Gen 2",
+      "price": 400000,
+      "image": "Chuột có dây Gaming Logitech G102 LightSync Gen 2.png",
+      "description": "Trà oolong tứ quý hương sen",
+      "category_id": "2"
+    },
+    {
+      "id": "9",
+      "name": "Tai nghe chụp tai chống ồn Apple AirPods Max 2024",
+      "price": 12590000,
+      "image": "Tai nghe chụp tai chống ồn Apple AirPods Max 2024.png",
+      "description": "Chip tai nghe Apple H1",
+      "category_id": "3"
+    },
+    {
+      "id": "10",
+      "name": "Tai nghe Bluetooth Apple AirPods 4",
+      "price": 2990000,
+      "image": "Tai nghe Bluetooth Apple AirPods 4.png",
+      "description": "Chip tai nghe H2",
+      "category_id": "3"
+    },
+    {
+      "id": "11",
+      "name": "Tai nghe Bluetooth Apple AirPods Pro 2 2023 USB-C",
+      "price": 4950000,
+      "image": "Tai nghe Bluetooth Apple AirPods Pro 2 2023 USB-C.png",
+      "description": "Cảm ứng chạm",
+      "category_id": "3"
+    },
+    {
+      "id": "12",
+      "name": "CTai nghe Bluetooth True Wireless Beats Solo Buds",
+      "price": 1590000,
+      "image": "Tai nghe Bluetooth True Wireless Beats Solo Buds.png",
+      "description": "Sạc nhanh",
+      "category_id": "3"
+    },
+    {
+      "id": "13",
+      "name": "Ổ cứng di động SSD Kingston XS1000 USB 3.2 Gen 2 1TB Đen",
+      "price": 2990000,
+      "image": "Ổ cứng di động SSD Kingston XS1000 USB 3.2 Gen 2 1TB Đen.png",
+      "description": "Kim loại + nhựa",
+      "category_id": "4"
+    },
+    {
+      "id": "14",
+      "name": "Ổ cứng di động SSD Samsung T7 Portable 1TB",
+      "price": 3990000,
+      "image": "Ổ cứng di động SSD Samsung T7 Portable 1TB.png",
+      "description": "Samsung Chính hãng",
+      "category_id": "4"
+    },
+    {
+      "id": "15",
+      "name": "Ổ cứng di động Sandisk E61 Extreme V2 SSD 1TB",
+      "price": 5090000,
+      "image": "Ổ cứng di động Sandisk E61 Extreme V2 SSD 1TB.png",
+      "description": "Chống nước IP65",
+      "category_id": "4"
+    },
+    {
+      "id": "16",
+      "name": "Ổ cứng di động SSD Samsung T9 2000MB/S 1TB MU-PG1T0B/WW",
+      "price": 390001,
+      "image": "Ổ cứng di động SSD Samsung T9 2000MB 1TB MU-PG1T0B.png",
+      "description": "Samsung Chính hãng",
+      "category_id": "4"
+    },
+    {
+      "id": "17",
+      "name": "Laptop ASUS TUF Gaming F16 FX607VJ-RL034W",
+      "price": 22490000,
+      "image": "Laptop ASUS TUF Gaming F16 FX607VJ-RL034W.png",
+      "description": "Intel Core 5 210H 2.2 GHz (12MB Cache, up to 4.8 GHz, 8 lõi, 12 luồng)",
+      "category_id": "5"
+    },
+    {
+      "id": "18",
+      "name": "Laptop ASUS Vivobook S 14 FLIP TP3402VA-LZ632W",
+      "price": 19900000,
+      "image": "Laptop ASUS Vivobook S 14 FLIP TP3402VA-LZ632W.png",
+      "description": "Intel Core i5-13420H 2.1 GHz (12MB Cache, up to 4.6 GHz, 8 lõi, 12 luồng)",
+      "category_id": "5"
+    },
+    {
+      "id": "19",
+      "name": "Laptop Lenovo LOQ 15IAX9E 83LK0079VN",
+      "price": 21490000,
+      "image": "Laptop Lenovo LOQ 15IAX9E 83LK0079VN.png",
+      "description": "512GB SSD M.2 2242 PCIe 4.0x4 NVMe (Tối đa hai ổ đĩa, 2x M.2 SSD • M.2 2242 SSD tối đa 1TB mỗi ổ)",
+      "category_id": "5"
+    },
+    {
+      "id": "20",
+      "name": "MacBook Air M4 13 inch 2025 10CPU 10GPU 16GB 512GB",
+      "price": 28990000,
+      "image": "MacBook Air M4 13 inch 2025 10CPU 10GPU 16GB 512GB.png",
+      "description": "CPU 10 lõi với 4 lõi hiệu năng và 6 lõi tiết kiệm điện",
+      "category_id": "5"
+    }
+  ],
+  "bonuses": [
+    {
+      "id": "1",
+      "name": "Dây kim loại đen",
+      "price": 10000
+    },
+    {
+      "id": "2",
+      "name": "Dụng cụ vệ sinh linh kiện",
+      "price": 25000
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Bàn phím"
+    },
+    {
+      "id": "2",
+      "name": "Chuột"
+    },
+    {
+      "id": "3",
+      "name": "Tai nghe"
+    },
+    {
+      "id": "4",
+      "name": "Ổ cứng"
+    },
+    {
+      "id": "5",
+      "name": "Laptop"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Quản Trị Viên",
+      "phone": "113",
+      "email": "admin@gmail.com",
+      "password": "123",
+      "address": "QTSC 9, CVPM Quang Trung, TP.HCM",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "name": "Khách hàng",
+      "phone": "114",
+      "email": "user@gmail.com",
+      "password": "123",
+      "address": "QTSC 9, CVPM Quang Trung, TP.HCM",
+      "role": "user"
+    },
+    {
+      "id": "95bc",
+      "name": "nigger",
+      "phone": "0931839732",
+      "email": "basau@gmail.com",
+      "password": "nam123123",
+      "address": "",
+      "role": "user"
+    }
+  ]
+}

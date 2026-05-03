@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Đơn hàng của bạn</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f6fa;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.order-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.order-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-id {
+    font-weight: bold;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status.processing { background: #ffeaa7; color: #d35400; }
+.status.shipping { background: #74b9ff; color: white; }
+.status.done { background: #55efc4; color: #006266; }
+
+.order-info {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.product-list {
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.total {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.empty {
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>📦 Đơn hàng của bạn</h1>
+
+<div class="order-container" id="order-list"></div>
+
+<script>
+const orders = JSON.parse(localStorage.getItem("orders")) || [];
+const container = document.getElementById("order-list");
+
+function getStatusClass(status) {
+    if (status === "Đang xử lý") return "processing";
+    if (status === "Đang giao") return "shipping";
+    return "done";
+}
+
+if (orders.length === 0) {
+    container.innerHTML = "<p class='empty'>Bạn chưa có đơn hàng nào 😢</p>";
+} else {
+    orders.reverse().forEach(order => {
+
+        let productsHTML = "";
+        order.products.forEach(p => {
+            productsHTML += `
+                <div class="product-item">
+                    <span>${p.name} x ${p.quantity}</span>
+                    <span>${(p.price * p.quantity).toLocaleString()}₫</span>
+                </div>
+            `;
+        });
+
+        const div = document.createElement("div");
+        div.className = "order-card";
+
+        div.innerHTML = `
+            <div class="order-header">
+                <span class="order-id">Mã: ${order.id}</span>
+                <span class="status ${getStatusClass(order.status)}">
+                    ${order.status}
+                </span>
+            </div>
+
+            <div class="order-info">
+                👤 ${order.name} | 📞 ${order.phone}
+            </div>
+
+            <div class="order-info">
+                📍 ${order.address}, ${order.city}
+            </div>
+
+            <div class="order-info">
+                💳 ${order.payment} | 🕒 ${order.date}
+            </div>
+
+            <div class="product-list">
+                ${productsHTML}
+            </div>
+
+            <div class="total">
+                Tổng: ${order.total.toLocaleString()}₫
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
+}
+</script>
+
+</body>
+</html>

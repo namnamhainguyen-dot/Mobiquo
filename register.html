@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tài Khoản | TechStore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fefefe;
+            --primary-color: #00a169;
+            --primary-soft: #e0f2e9;
+            --text-main: #000000;
+            --text-secondary: #555555;
+            --border-light: #e5e5e5;
+            --max-width: 1320px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --error-color: #e53e3e;
+            --success-color: #00a169;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header Styles */
+        header {
+            background: white;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a,
+        .category-trigger {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: var(--transition);
+            cursor: pointer;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .nav-links a:hover,
+        .category-trigger:hover {
+            color: var(--primary-color);
+        }
+
+        .category-board {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            width: 800px;
+            background: white;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            visibility: hidden;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1001;
+            text-align: left;
+        }
+
+        .nav-links li:hover .category-board {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .category-group h4 {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .category-list a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: none;
+            color: var(--text-main);
+            letter-spacing: 0;
+            display: inline-block;
+        }
+
+        .category-list a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: inherit;
+        }
+
+        .icon-svg {
+            color: var(--text-main);
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover .icon-svg {
+            color: var(--primary-color);
+        }
+
+        .search-bar-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1010;
+            display: flex;
+            align-items: center;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .search-bar-container.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-bar-inner {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+
+        .close-search {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+
+        /* Auth Card Styles */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 0;
+            background-color: #fbfbfb;
+        }
+
+        .auth-card {
+            background: white;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .auth-card h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-card p.subtitle {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px var(--primary-soft);
+        }
+
+        .form-group input.error {
+            border-color: var(--error-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+            display: block;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #000;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .switch-auth {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .switch-auth a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .terms-text {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1a1a1a;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            z-index: 2000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toast-notification.show {
+            transform: translateX(0);
+        }
+
+        .toast-notification.success {
+            background: var(--success-color);
+        }
+
+        .toast-notification.error {
+            background: var(--error-color);
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: white;
+            padding: 6rem 0 3rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4rem;
+        }
+
+        .footer-col h5 {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+            color: #777;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            border-top: 1px solid #222;
+            padding-top: 2.5rem;
+            margin-top: 5rem;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-board {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .auth-card {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .nav-container {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .toast-notification {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                transform: translateY(100px);
+            }
+
+            .toast-notification.show {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="main-header">
+        <div class="container header-inner">
+            <div class="search-bar-container" id="search-bar">
+                <div class="container search-bar-inner">
+                    <svg class="icon-svg" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" class="search-input" id="search-input" placeholder="Tìm kiếm sản phẩm...">
+                    <button class="close-search" id="close-search-btn" title="Đóng (Esc)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <a href="index.html" class="logo">
+                <img src="public/img/TFT_pic.png" alt="Logo">
+            </a>
+
+            <nav class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="product.html">Sản phẩm</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    
+                </ul>
+            </nav>
+
+            <div class="header-icons">
+                <button class="icon-btn" id="open-search-btn">
+                    <svg class="icon-svg" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn">
+                    <a href="cart.html"><svg class="icon-svg" viewBox="0 0 24 24">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg></a>
+                </button>
+                <button class="icon-btn">
+                    <a href="user.html"><svg class="icon-svg" viewBox="0 0 24 24">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg></a>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-card">
+            <h1>Tạo tài khoản mới</h1>
+            <p class="subtitle">Khám phá thế giới công nghệ cao cấp cùng chúng tôi.</p>
+
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="name">Họ tên</label>
+                    <input type="text" id="name" placeholder="Họ và tên" autocomplete="name">
+                    <span class="error-message" id="name-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="tel" id="phone" placeholder="Nhập số điện thoại" autocomplete="tel">
+                    <span class="error-message" id="phone-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="email@vi-du.com" autocomplete="email">
+                    <span class="error-message" id="email-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" placeholder="Tối thiểu 8 ký tự" autocomplete="new-password">
+                    <span class="error-message" id="password-error"></span>
+                </div>
+
+                <p class="terms-text">Bằng việc đăng ký, bạn đã đồng ý với Điều khoản sử dụng và Chính sách bảo mật của
+                    TechStore.</p>
+
+                <button type="submit" class="btn btn-primary" id="register-btn">Đăng ký tài khoản</button>
+            </form>
+
+            <p class="switch-auth">Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 2rem;">
+                        <img src="public/img/TFT_pic.png" style="filter: brightness(0) invert(1);" alt="Logo Footer">
+                    </div>
+                    <p style="color: #666; line-height: 2; font-size: 0.85rem;">Giải pháp phần cứng tối giản và mạnh mẽ
+                        cho game thủ toàn cầu.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>SẢN PHẨM</h5>
+                   <ul class="footer-links">
+                <li><a href="#">Iphone</a></li>
+                <li><a href="#">Linh kiện</a></li>
+                <li><a href="#">Samsung</a></li>
+                <li><a href="#">Xiaomi</a></li>
+            </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>HỖ TRỢ</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Bảo hành</a></li>
+                        <li><a href="#">Vận chuyển</a></li>
+                        <li><a href="#">Trả hàng</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>KẾT NỐI</h5>
+                    <div style="display: flex; gap: 1.5rem;">
+                        <svg class="icon-svg" style="color: white" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                        <svg class="icon-svg" style="color: white" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2024 TechStore. Mọi quyền được bảo lưu.</p>
+                <div style="display: flex; gap: 2rem;"><a href="#" style="color: inherit; text-decoration: none;">Chính
+                        sách bảo mật</a><a href="#" style="color: inherit; text-decoration: none;">Điều khoản</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast-notification"></div>
+
+    <script>
+        // ====================== SEARCH BAR ======================
+        const openSearchBtn = document.getElementById('open-search-btn');
+        const closeSearchBtn = document.getElementById('close-search-btn');
+        const searchBar = document.getElementById('search-bar');
+        const searchInputElem = document.getElementById('search-input');
+
+        if (openSearchBtn && closeSearchBtn && searchBar) {
+            openSearchBtn.addEventListener('click', () => {
+                searchBar.classList.add('active');
+                setTimeout(() => searchInputElem?.focus(), 300);
+            });
+
+            const hideSearch = () => {
+                searchBar.classList.remove('active');
+                if (searchInputElem) searchInputElem.value = '';
+            };
+
+            closeSearchBtn.addEventListener('click', hideSearch);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && searchBar.classList.contains('active')) hideSearch();
+            });
+        }
+    </script>
+    <script type="module" src="dist/app.js"></script>
+</body>
+
+</html>

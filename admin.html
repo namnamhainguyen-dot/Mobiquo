@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap 5.3.2 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons 1.11.3 CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
+    <title>Tổng quan Quản trị - Mobiquo</title>
+
+    <style>
+      :root {
+        --color-accent: #00a169; 
+        --color-accent-darker: #007d52; 
+        --sidebar-width: 240px;
+        --sidebar-bg: #212529;
+      }
+
+      /* TỶ LỆ CHỮ GỌN GÀNG */
+      html { font-size: 14px; }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+      }
+
+      /* SIDEBAR FIXED */
+      #admin-sidebar {
+        width: var(--sidebar-width);
+        height: 100vh;
+        background-color: var(--sidebar-bg);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1030;
+        overflow-y: auto;
+      }
+
+      #admin-sidebar .nav-link {
+        color: #adb5bd;
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        align-items: center;
+        border-left: 4px solid transparent;
+        transition: 0.2s;
+      }
+
+      #admin-sidebar .nav-link i {
+        margin-right: 0.75rem;
+        width: 20px;
+        text-align: center;
+      }
+
+      #admin-sidebar .nav-link.active {
+        color: #ffffff;
+        background-color: rgba(0, 161, 105, 0.15);
+        border-left-color: var(--color-accent);
+      }
+
+      #admin-sidebar .nav-link:hover {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      /* MAIN CONTENT */
+      main {
+        margin-left: var(--sidebar-width) !important;
+        width: calc(100% - var(--sidebar-width)) !important;
+        min-height: 100vh;
+      }
+
+      .admin-top-nav {
+        background: #fff;
+        border-bottom: 1px solid #dee2e6;
+        padding: 0.5rem 1.5rem;
+      }
+
+      .admin-content { padding: 1.5rem 2rem; }
+
+      /* KPI CARDS */
+      .kpi-card {
+        background: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .kpi-card .card-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        margin-top: 0.2rem;
+      }
+
+      .kpi-card .card-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .kpi-card .card-icon {
+        font-size: 2rem;
+        color: var(--color-accent);
+        opacity: 0.2;
+      }
+
+      /* CHARTS */
+      .dashboard-chart-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+        height: 100%;
+      }
+
+      .dashboard-chart-card h5 {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .product-sales {
+        font-weight: 600;
+        color: var(--color-accent);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 991.98px) {
+        #admin-sidebar { margin-left: calc(-1 * var(--sidebar-width)); }
+        main { margin-left: 0 !important; width: 100% !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- SIDEBAR -->
+      <nav id="admin-sidebar" class="d-none d-md-block">
+        <div class="pt-3">
+          <a href="index.html" class="d-block px-3 mb-4 text-white text-decoration-none">
+            <img src="../public/img/MOBIQUO.png" alt="Logo" style="height: 32px;" onerror="this.src='https://placehold.co/120x32?text=Mobiquo'">
+          </a>
+
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link active" href="admin.html"><i class="bi bi-speedometer2"></i> Tổng Quan</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_orders.html"><i class="bi bi-receipt"></i> Quản lý Đơn Hàng</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_products.html"><i class="bi bi-box-seam"></i> Quản lý Sản Phẩm</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_category.html"><i class="bi bi-tags"></i> Quản lý Danh Mục</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_account.html"><i class="bi bi-people"></i> Quản lý Người Dùng</a></li>
+          </ul>
+        <h6 class="sidebar-heading px-4 mt-4 mb-1 text-muted text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Tài khoản</h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item"><a class="nav-link" href="user_profile.html"><i class="bi bi-person-circle"></i> Admin (Bạn)</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-box-arrow-left"></i> Đăng xuất</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!-- MAIN -->
+      <main class="ms-sm-auto px-0">
+        <nav class="navbar navbar-expand-lg admin-top-nav shadow-sm sticky-top">
+          <div class="container-fluid">
+            <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#admin-sidebar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <form class="d-flex mx-auto" style="width: 400px">
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-search"></i></span>
+                <input class="form-control bg-light border-start-0" type="search" placeholder="Tìm kiếm đơn hàng, sản phẩm..." />
+              </div>
+            </form>
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-person-circle fs-5 align-middle"></i> Admin</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="admin-content">
+          <h1 class="h3 mb-4 fw-bold">Tổng quan hệ thống</h1>
+          
+          <!-- KPI Row -->
+          <div class="row g-4 mb-4">
+            <div class="col-lg-3 col-md-6">
+              <div class="kpi-card">
+                <div><div class="card-title">Doanh thu hôm nay</div><div class="card-value">12.5M</div></div>
+                <i class="bi bi-currency-dollar card-icon"></i>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="kpi-card">
+                <div><div class="card-title">Đơn hàng mới</div><div class="card-value">32</div></div>
+                <i class="bi bi-receipt card-icon"></i>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="kpi-card">
+                <div><div class="card-title">Khách hàng mới</div><div class="card-value">15</div></div>
+                <i class="bi bi-person-plus card-icon"></i>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="kpi-card">
+                <div><div class="card-title">Tỉ lệ chuyển đổi</div><div class="card-value">4.2%</div></div>
+                <i class="bi bi-graph-up-arrow card-icon"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row g-4 mb-4">
+            <div class="col-lg-8">
+              <div class="dashboard-chart-card">
+                 <h5>Biểu đồ doanh thu 30 ngày</h5>
+                 <canvas id="revenueChart"></canvas>
+              </div>
+            </div>
+            <div class="col-lg-4">
+               <div class="dashboard-chart-card">
+                 <h5>Tỉ lệ ngành hàng</h5>
+                 <canvas id="categoryChart"></canvas>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row g-4">
+            <div class="col-lg-8">
+               <div class="dashboard-chart-card">
+                  <h5 class="mb-3">Đơn hàng vừa đặt</h5>
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th>Mã Đơn</th><th>Khách hàng</th><th>Tổng tiền</th><th>Trạng thái</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>#FS1005</strong></td><td>Hải Nam</td><td>1.750.000₫</td>
+                          <td><span class="badge rounded-pill bg-success-subtle text-success">Đã giao</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-4">
+               <div class="dashboard-chart-card">
+                  <h5 class="mb-3">Sản phẩm bán chạy</h5>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                      <span>1. Logitech G502 Hero</span><span class="product-sales">120 sp</span>
+                    </li>
+                  </ul>
+               </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // CONFIG CHART MÀU XANH LÁ
+      const accentColor = '#00a169';
+      const accentLight = 'rgba(0, 161, 105, 0.1)';
+
+      const revenueData = {
+        labels: ["Ngày 1", "Ngày 5", "Ngày 10", "Ngày 15", "Ngày 20", "Ngày 25", "Ngày 30"],
+        datasets: [{
+          label: 'Doanh thu (VNĐ)',
+          data: [1500000, 2000000, 1800000, 3000000, 2500000, 4000000, 4500000],
+          fill: true,
+          backgroundColor: accentLight,
+          borderColor: accentColor,
+          tension: 0.3
+        }]
+      };
+      
+      const categoryData = {
+        labels: ['PC', 'Gear', 'Linh kiện', 'Màn hình'],
+        datasets: [{
+          data: [40, 25, 20, 15],
+          backgroundColor: [accentColor, '#007d52', '#212529', '#adb5bd'],
+        }]
+      };
+
+      document.addEventListener("DOMContentLoaded", function() {
+        const ctxRevenue = document.getElementById('revenueChart');
+        if (ctxRevenue) {
+          new Chart(ctxRevenue, { type: 'line', data: revenueData });
+        }
+        const ctxCategory = document.getElementById('categoryChart');
+        if (ctxCategory) {
+           new Chart(ctxCategory, { 
+             type: 'doughnut', 
+             data: categoryData,
+             options: { plugins: { legend: { position: 'bottom' } } }
+           });
+        }
+      });
+    </script>
+  </body>
+</html>

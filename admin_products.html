@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap 5.3.2 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons 1.11.3 CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <title>Quản lý Sản phẩm - Mobiquo Admin</title>
+
+    <style>
+      :root {
+        --color-accent: #00a169; 
+        --color-accent-darker: #007d52; 
+        --sidebar-width: 240px;
+        --sidebar-bg: #212529;
+      }
+
+      /* ĐỒNG BỘ TỶ LỆ CHỮ 14px */
+      html { font-size: 14px; }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+      }
+
+      /* SIDEBAR CỐ ĐỊNH (Giống trang chi tiết) */
+      #admin-sidebar {
+        width: var(--sidebar-width);
+        height: 100vh;
+        background-color: var(--sidebar-bg);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1030;
+        overflow-y: auto;
+      }
+
+      #admin-sidebar .nav-link {
+        color: #adb5bd;
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        align-items: center;
+        border-left: 4px solid transparent;
+        transition: 0.2s;
+        text-decoration: none;
+      }
+
+      #admin-sidebar .nav-link.active {
+        color: #ffffff;
+        background-color: rgba(0, 161, 105, 0.15);
+        border-left-color: var(--color-accent);
+      }
+
+      #admin-sidebar .nav-link i { margin-right: 0.75rem; width: 20px; text-align: center; }
+      #admin-sidebar .nav-link:hover { color: #fff; background-color: rgba(255, 255, 255, 0.05); }
+
+      /* MAIN CONTENT ADJUSTMENT */
+      main {
+        margin-left: var(--sidebar-width) !important;
+        width: calc(100% - var(--sidebar-width)) !important;
+        min-height: 100vh;
+      }
+
+      .admin-top-nav {
+        background: #fff;
+        border-bottom: 1px solid #dee2e6;
+        padding: 0.75rem 1.5rem;
+      }
+
+      .admin-content { padding: 1.5rem 2rem; }
+
+      /* CARD & TABLE STYLES ĐỒNG BỘ */
+      .card { border: none; border-radius: 10px; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); margin-bottom: 1.5rem; }
+      
+      .admin-table thead th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        color: #6c757d;
+        border-bottom: 1px solid #eee;
+        padding: 1rem;
+      }
+
+      .admin-table img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #eee;
+      }
+
+      /* BUTTONS & BADGES */
+      .btn-primary { background-color: var(--color-accent); border-color: var(--color-accent); }
+      .btn-primary:hover { background-color: var(--color-accent-darker); border-color: var(--color-accent-darker); }
+      
+      .btn-outline-secondary { color: var(--color-accent); border-color: var(--color-accent); }
+      .btn-outline-secondary:hover { background-color: var(--color-accent); color: white; border-color: var(--color-accent); }
+
+      .brand-badge {
+        background-color: #f1f3f5;
+        color: #495057;
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      .status-badge {
+        padding: 0.4em 0.8em;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: 50px;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 991.98px) {
+        #admin-sidebar { margin-left: calc(-1 * var(--sidebar-width)); }
+        main { margin-left: 0 !important; width: 100% !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- SIDEBAR -->
+      <nav id="admin-sidebar" class="d-none d-md-block">
+        <div class="pt-3">
+          <a href="index.html" class="d-block px-3 mb-4 text-white text-decoration-none">
+            <img src="../public/img/MOBIQUO.png" alt="Logo" style="height: 32px;" onerror="this.src='https://placehold.co/120x32?text=Mobiquo'">
+          </a>
+
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="admin.html"><i class="bi bi-speedometer2"></i> Tổng Quan</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_orders.html"><i class="bi bi-receipt"></i> Quản lý Đơn Hàng</a></li>
+            <li class="nav-item"><a class="nav-link active" href="admin_products.html"><i class="bi bi-box-seam"></i> Quản lý Sản Phẩm</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_category.html"><i class="bi bi-tags"></i> Quản lý Danh Mục</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_account.html"><i class="bi bi-people"></i> Quản lý Người Dùng</a></li>
+          </ul>
+          <h6 class="sidebar-heading px-4 mt-4 mb-1 text-muted text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Tài khoản</h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item"><a class="nav-link" href="user_profile.html"><i class="bi bi-person-circle"></i> Admin (Bạn)</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-box-arrow-left"></i> Đăng xuất</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- CONTENT -->
+      <main class="ms-sm-auto px-0">
+        <!-- Top Nav -->
+        <nav class="navbar navbar-expand-lg admin-top-nav sticky-top">
+          <div class="container-fluid">
+            <button class="navbar-toggler d-md-none me-2" type="button" data-bs-toggle="collapse" data-bs-target="#admin-sidebar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <form class="d-flex me-auto" style="width: 350px">
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                <input id="searchInput" class="form-control bg-light border-start-0" type="search" placeholder="Tìm tên sản phẩm..." />
+              </div>
+            </form>
+            <ul class="navbar-nav ms-auto align-items-center">
+              <li class="nav-item">
+                <span class="nav-link fw-semibold text-dark"><i class="bi bi-person-circle me-1"></i> Chào, Admin</span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="admin-content">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h1 class="h4 mb-0 fw-bold">Quản lý Sản phẩm</h1>
+              <p class="text-muted small mb-0">Thiết bị & Linh kiện máy tính</p>
+            </div>
+            <a href="admin_productForm.html?mode=add" class="btn btn-primary">
+               <i class="bi bi-plus-lg me-2"></i>Thêm sản phẩm mới
+            </a>
+          </div>
+          
+          <!-- BỘ LỌC -->
+           <div class="card mb-4">
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <select id="filterCategory" class="form-select">
+                    <option value="all" selected>Tất cả danh mục</option>
+                    <!-- Dữ liệu danh mục sẽ được đổ vào đây hoặc để cứng -->
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <select id="filterPrice" class="form-select">
+                    <option value="all">Tất cả mức giá</option>
+                    <option value="0-5000000">Dưới 5 triệu</option>
+                    <option value="5000000-15000000">Từ 5 - 15 triệu</option>
+                    <option value="15000000">Trên 15 triệu</option> <!-- Chỉ để min, max sẽ là undefined -->
+                </select>
+                </div>
+                <div class="col-md-4">
+                  <button id="btnResetFilter" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-arrow-clockwise me-1"></i> Xóa lọc
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bảng Sản Phẩm -->
+          <div class="card">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle admin-table mb-0">
+                  <thead>
+                    <tr>
+                      <th class="ps-4">Ảnh</th>
+                      <th>Tên sản phẩm</th>
+                      <th>Thương hiệu</th> 
+                      <th>Giá niêm yết</th>
+                      <th>Trạng thái</th>
+                      <th class="text-end pe-4">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bootstrap 5.3.2 JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="dist/admin.js"></script>
+  </body>
+</html>
