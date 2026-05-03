@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ - MobiQuo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a5c3e;
+            --primary-hover: #1e7b56;
+            --primary-light: #e8f3ef;
+            --accent-color: #d4af37;
+            --accent-hover: #c6a42b;
+            --bg-color: #ffffff;
+            --bg-secondary: #fafaf9;
+            --text-main: #1a1a1a;
+            --text-secondary: #5a5a5a;
+            --text-muted: #8a8a8a;
+            --border-light: #e8e8e8;
+            --border-medium: #d4d4d4;
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 12px 32px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-lg: 0 24px 48px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.04);
+            --transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            --transition-fast: all 0.2s ease;
+            --max-width: 1440px;
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 20px;
+            --border-radius-xl: 28px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: var(--transition-fast);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition-fast);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .icon-svg {
+            color: var(--text-main);
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            transition: var(--transition-fast);
+        }
+
+        .icon-btn:hover .icon-svg {
+            color: var(--primary-color);
+        }
+
+        /* Search Bar */
+        .search-bar-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            z-index: 1010;
+            display: flex;
+            align-items: center;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .search-bar-container.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-bar-inner {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 1.2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1.2rem;
+            padding: 0.8rem 0;
+            border-bottom: 2px solid var(--border-medium);
+        }
+
+        .search-input:focus {
+            border-bottom-color: var(--primary-color);
+        }
+
+        .close-search {
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition-fast);
+        }
+
+        .close-search:hover {
+            transform: rotate(90deg);
+            background: var(--border-light);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0a3d2a 100%);
+            padding: 5rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 5rem 0;
+        }
+
+        /* Contact Info */
+        .contact-info h2,
+        .contact-form h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info > p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-md);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateX(8px);
+            background: var(--primary-light);
+        }
+
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+
+        .info-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-content p,
+        .info-content a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+        }
+
+        .info-content a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Map */
+        .map-container {
+            margin-top: 2rem;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            height: 250px;
+            background: var(--bg-secondary);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e0e0e0 0%, #cccccc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        /* Contact Form */
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-medium);
+            border-radius: var(--border-radius-sm);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+            background: var(--bg-color);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(10, 92, 62, 0.1);
+        }
+
+        .btn-submit {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--bg-secondary);
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .faq-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #111111;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h5 {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 4px;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 1024px) {
+            .contact-grid,
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                display: none;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-inner">
+        <div class="search-bar-container" id="search-bar">
+            <div class="container search-bar-inner">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" class="search-input" id="search-input" placeholder="Tìm kiếm sản phẩm...">
+                <button class="close-search" id="close-search-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="logo">
+            <a href="index.html">
+                <img src="public/img/logo.png" alt="MobiQuo" onerror="this.style.display='none'">
+            </a>
+        </div>
+
+        <nav class="nav-container">
+            <ul class="nav-links">
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="product.html">Sản phẩm</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="contact.html" class="active">Liên hệ</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-icons">
+            <button class="icon-btn" id="open-search-btn">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+            <button class="icon-btn">
+                <a href="cart.html">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                </a>
+            </button>
+            <button class="icon-btn">
+                <a href="user.html">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </a>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>Liên Hệ Với Chúng Tôi</h1>
+        <p>Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn</p>
+    </div>
+</div>
+
+<!-- Contact Main -->
+<div class="container">
+    <div class="contact-grid">
+        <!-- Left: Contact Info -->
+        <div class="contact-info">
+            <h2>Thông tin liên hệ</h2>
+            <p>Hãy liên hệ với MobiQuo qua một trong những kênh dưới đây. Đội ngũ của chúng tôi sẽ phản hồi trong thời gian sớm nhất.</p>
+            
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div class="info-content">
+                        <h4>Hotline</h4>
+                        <p><a href="tel:19006789">1900 6789</a></p>
+                        <p>Thứ 2 - Chủ nhật: 8:00 - 21:00</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div class="info-content">
+                        <h4>Email</h4>
+                        <p><a href="mailto:contact@mobiquo.com">namnamhainguyen@gmail.com</a></p>
+                        <p><a href="mailto:support@mobiquo.com">support@mobiquo.com</a> (Hỗ trợ kỹ thuật)</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div class="info-content">
+                        <h4>Showroom Quận 1</h4>
+                        <p></p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div class="info-content">
+                        <h4>Showroom TP.HCM</h4>
+                        <p>Số 456 Đường Nguyễn Trãi, Quận 1, TP. Hồ Chí Minh</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map -->
+            <div class="map-container">
+                <div class="map-placeholder">
+                    🗺️ [Bản đồ vị trí cửa hàng]
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right: Contact Form -->
+        <div class="contact-form">
+            <h2>Gửi tin nhắn cho chúng tôi</h2>
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Họ và tên *</label>
+                        <input type="text" name="fullname" required placeholder="Nhập họ tên của bạn">
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" name="email" required placeholder="example@email.com">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <input type="tel" name="phone" placeholder="0xx xxx xxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>Chủ đề *</label>
+                        <select name="subject" required>
+                            <option value="">Chọn chủ đề</option>
+                            <option value="consult">Tư vấn sản phẩm</option>
+                            <option value="order">Đơn hàng & Vận chuyển</option>
+                            <option value="warranty">Bảo hành & Sửa chữa</option>
+                            <option value="other">Vấn đề khác</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nội dung *</label>
+                    <textarea name="message" rows="6" required placeholder="Vui lòng nhập nội dung chi tiết..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Gửi tin nhắn →</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Câu hỏi thường gặp</h2>
+            <p>Những thắc mắc phổ biến về chính sách và dịch vụ của MobiQuo</p>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>MobiQuo có hỗ trợ vận chuyển toàn quốc không?</h4>
+                <p>Có, chúng tôi hỗ trợ vận chuyển đến tất cả 63 tỉnh thành trên cả nước. Thời gian giao hàng từ 2-5 ngày tùy khu vực.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Chính sách bảo hành như thế nào?</h4>
+                <p>Sản phẩm của MobiQuo được bảo hành chính hãng từ 12-36 tháng tùy từng dòng sản phẩm. Quý khách có thể mang đến trực tiếp cửa hàng hoặc gửi qua bưu điện.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Làm thế nào để kiểm tra đơn hàng?</h4>
+                <p>Quý khách có thể theo dõi đơn hàng qua tài khoản trên website hoặc liên hệ hotline 1900 6789 để được hỗ trợ.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Có hỗ trợ đổi trả sản phẩm không?</h4>
+                <p>Chúng tôi hỗ trợ đổi trả trong vòng 7 ngày kể từ ngày nhận hàng đối với sản phẩm còn nguyên tem mác và chưa qua sử dụng.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Có nhận lắp ráp PC theo yêu cầu không?</h4>
+                <p>Có, đội ngũ kỹ thuật của MobiQuo sẽ tư vấn và lắp ráp PC hoàn toàn miễn phí theo cấu hình khách hàng lựa chọn.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Thời gian làm việc của showroom?</h4>
+                <p>Cả hai showroom Hà Nội và TP.HCM đều mở cửa từ 9:00 - 20:00 tất cả các ngày trong tuần (kể cả ngày lễ).</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container footer-grid">
+        <div class="footer-col">
+            <h5>SẢN PHẨM</h5>
+            <ul class="footer-links">
+                <li><a href="#">Iphone</a></li>
+                <li><a href="#">Linh kiện</a></li>
+                <li><a href="#">Samsung</a></li>
+                <li><a href="#">Xiaomi</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>HỖ TRỢ</h5>
+            <ul class="footer-links">
+                <li><a href="#">Bảo hành</a></li>
+                <li><a href="#">Vận chuyển</a></li>
+                <li><a href="#">Trả hàng</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>KẾT NỐI</h5>
+            <div style="display: flex; gap: 1.5rem;">
+                <svg class="icon-svg" style="color: white" width="20" height="20" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                <svg class="icon-svg" style="color: white" width="20" height="20" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </div>
+        </div>
+    </div>
+    <div class="container copyright">
+        <p>© 2026 MobiQuo. Mọi quyền được bảo lưu.</p>
+        <div style="display: flex; gap: 2rem;">
+            <a href="#" style="color: inherit; text-decoration: none;">Chính sách bảo mật</a>
+            <a href="#" style="color: inherit; text-decoration: none;">Điều khoản</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Search functionality
+    const openSearchBtn = document.getElementById('open-search-btn');
+    const closeSearchBtn = document.getElementById('close-search-btn');
+    const searchBar = document.getElementById('search-bar');
+    const searchInput = document.getElementById('search-input');
+
+    openSearchBtn.addEventListener('click', () => {
+        searchBar.classList.add('active');
+        setTimeout(() => searchInput.focus(), 300);
+    });
+
+    const hideSearch = () => {
+        searchBar.classList.remove('active');
+        searchInput.value = '';
+    };
+
+    closeSearchBtn.addEventListener('click', hideSearch);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchBar.classList.contains('active')) {
+            hideSearch();
+        }
+    });
+
+    // Form submission handling
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Cảm ơn bạn đã gửi tin nhắn! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
+            contactForm.reset();
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap 5.3.2 CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons 1.11.3 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <title>Chi tiết đơn hàng #9042</title>
+
+    <style>
+  :root {
+  --color-accent: #00a169; 
+  --color-accent-darker: #007d52; 
+  --sidebar-width: 240px;
+  --sidebar-bg: #212529;
+}
+
+/* ĐỒNG BỘ TỶ LỆ CHỮ 14px */
+html { font-size: 14px; }
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+}
+
+/* SIDEBAR CỐ ĐỊNH (FIXED) - Giống trang Sản phẩm */
+#admin-sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1030;
+  overflow-y: auto;
+}
+
+#admin-sidebar .nav-link {
+  color: #adb5bd;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid transparent;
+  transition: 0.2s;
+  text-decoration: none;
+}
+
+#admin-sidebar .nav-link.active {
+  color: #ffffff;
+  background-color: rgba(0, 161, 105, 0.15);
+  border-left-color: var(--color-accent);
+}
+
+#admin-sidebar .nav-link i { margin-right: 0.75rem; width: 20px; text-align: center; }
+#admin-sidebar .nav-link:hover { color: #fff; background-color: rgba(255, 255, 255, 0.05); }
+
+/* MAIN CONTENT ADJUSTMENT - Đẩy sang phải để không bị sidebar che */
+main {
+  margin-left: var(--sidebar-width) !important;
+  width: calc(100% - var(--sidebar-width)) !important;
+  min-height: 100vh;
+}
+
+.admin-top-nav {
+  background: #fff;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.75rem 1.5rem;
+}
+
+.admin-content { padding: 1.5rem 2rem; }
+
+/* CARD & TABLE STYLES ĐỒNG BỘ */
+.card { 
+  border: none; 
+  border-radius: 10px; 
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); 
+  margin-bottom: 1.5rem; 
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #6c757d;
+  border-bottom: 1px solid #eee;
+  padding: 1rem;
+}
+
+/* BADGES TRẠNG THÁI MÀU NHẸ (PASTEL) */
+.status-badge {
+  padding: 0.4em 0.8em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 50px;
+}
+.bg-completed { background-color: #e6f6f0; color: #00a169; }
+.bg-pending { background-color: #fffbeb; color: #d97706; }
+.bg-shipping { background-color: #eff6ff; color: #2563eb; }
+.bg-cancelled { background-color: #fef2f2; color: #dc2626; }
+
+@media (max-width: 991.98px) {
+  #admin-sidebar { margin-left: calc(-1 * var(--sidebar-width)); }
+  main { margin-left: 0 !important; width: 100% !important; }
+}
+</style>
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- SIDEBAR -->
+      <nav id="admin-sidebar" class="col-lg-2 col-md-3 d-none d-md-block p-0">
+        <div class="position-sticky pt-3">
+          <!-- Logo Cập Nhật -->
+          <a href="index.html" class="d-block px-3 mb-4 text-white text-decoration-none">
+            <img src="../public/img/MOBIQUO.png" alt="Logo" style="height: 32px;" onerror="this.src='https://placehold.co/120x32?text=Mobiquo'">
+          </a>
+
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="admin.html">
+                <i class="bi bi-speedometer2"></i>
+                Tổng Quan
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="admin_orders.html">
+                <i class="bi bi-receipt"></i>
+                Quản lý Đơn Hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin_products.html">
+                <i class="bi bi-box-seam"></i>
+                Quản lý Sản Phẩm
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin_category.html">
+                <i class="bi bi-tags"></i>
+                Quản lý Danh Mục
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin_account.html">
+                <i class="bi bi-people"></i>
+                Quản lý Người Dùng
+              </a>
+            </li>
+          </ul>
+          <h6 class="sidebar-heading px-4 mt-4 mb-1 text-muted text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Tài khoản</h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item"><a class="nav-link" href="user_profile.html"><i class="bi bi-person-circle"></i> Admin (Bạn)</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-box-arrow-left"></i> Đăng xuất</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <main class="col-lg-10 col-md-9 ms-sm-auto px-0">
+        <div id="main" class="admin-content">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h3 mb-0 text-gray-800">Quản lý Đơn Hàng</h2>
+          </div>
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th>Mã Đơn</th>
+                      <th>Khách Hàng</th>
+                      <th>Ngày Đặt</th>
+                      <th>Tổng Tiền</th>
+                      <th>Trạng Thái</th>
+                      <th class="text-end">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Dữ liệu render từ JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bootstrap 5.3.2 JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="dist/admin.js"></script>
+  </body>
+</html>

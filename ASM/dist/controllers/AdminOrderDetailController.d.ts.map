@@ -1,0 +1,1 @@
+{"version":3,"file":"AdminOrderDetailController.d.ts","sourceRoot":"","sources":["../../src/controllers/AdminOrderDetailController.ts"],"names":[],"mappings":"AAIA,qBAAa,0BAA0B;IACnC,OAAO,CAAC,IAAI,CAA8B;IAC1C,OAAO,CAAC,YAAY,CAAsB;IAG7B,IAAI;IAYX,MAAM,CAAC,EAAE,EAAC,MAAM;IAatB,WAAW,IAAG,IAAI;CAErB"}

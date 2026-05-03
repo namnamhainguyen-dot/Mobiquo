@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <title>Biểu mẫu Sản phẩm</title>
+    <style>
+      :root {
+  --color-accent: #00a169; 
+  --color-accent-darker: #007d52; 
+  --sidebar-width: 240px;
+  --sidebar-bg: #212529;
+}
+
+/* ĐỒNG BỘ TỶ LỆ CHỮ 14px */
+html { font-size: 14px; }
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+}
+
+/* SIDEBAR CỐ ĐỊNH (FIXED) */
+#admin-sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1030;
+  overflow-y: auto;
+}
+
+#admin-sidebar .nav-link {
+  color: #adb5bd;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid transparent;
+  transition: 0.2s;
+  text-decoration: none;
+}
+
+#admin-sidebar .nav-link.active {
+  color: #ffffff;
+  background-color: rgba(0, 161, 105, 0.15);
+  border-left-color: var(--color-accent);
+}
+
+#admin-sidebar .nav-link i { margin-right: 0.75rem; width: 20px; text-align: center; }
+#admin-sidebar .nav-link:hover { color: #fff; background-color: rgba(255, 255, 255, 0.05); }
+
+/* MAIN CONTENT ADJUSTMENT */
+main {
+  margin-left: var(--sidebar-width) !important;
+  width: calc(100% - var(--sidebar-width)) !important;
+  min-height: 100vh;
+}
+
+.admin-top-nav {
+  background: #fff;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.75rem 1.5rem;
+}
+
+.admin-content { padding: 1.5rem 2rem; }
+
+/* CARD & FORM STYLES */
+.card { 
+  border: none; 
+  border-radius: 10px; 
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); 
+  margin-bottom: 1.5rem; 
+}
+
+.form-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.form-control, .form-select {
+  border: 1px solid #dee2e6;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+}
+
+.form-control:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 0.2rem rgba(0, 161, 105, 0.15);
+}
+
+/* IMAGE PREVIEW CUSTOM */
+.preview-container {
+  background: #fdfdfd;
+  border: 2px dashed #dee2e6;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.preview-container:hover {
+  border-color: var(--color-accent);
+}
+
+.preview-img {
+  max-width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* BUTTONS */
+.btn-primary { background-color: var(--color-accent); border-color: var(--color-accent); }
+.btn-primary:hover { background-color: var(--color-accent-darker); border-color: var(--color-accent-darker); }
+
+/* RESPONSIVE */
+@media (max-width: 991.98px) {
+  #admin-sidebar { margin-left: calc(-1 * var(--sidebar-width)); }
+  main { margin-left: 0 !important; width: 100% !important; }
+}
+    </style>
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- SIDEBAR -->
+      <nav id="admin-sidebar" class="col-lg-2 col-md-3 d-none d-md-block p-0">
+        <div class="position-sticky pt-3">
+          <a href="index.html" class="d-block px-3 mb-3 text-white text-decoration-none">
+            <img src="../public/img/MOBIQUO.png" alt="Logo" style="height: 32px;" onerror="this.src='https://placehold.co/120x32?text=MOBIQUO'">
+          </a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="admin.html"><i class="bi bi-speedometer2 me-2"></i>Tổng quan</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_orders.html"><i class="bi bi-receipt me-2"></i>Đơn hàng</a></li>
+            <li class="nav-item"><a class="nav-link active" href="admin_products.html"><i class="bi bi-box-seam me-2"></i>Sản phẩm</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin_category.html"><i class="bi bi-tags me-2"></i>Danh mục</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <main class="col-lg-10 col-md-9 ms-sm-auto px-0">
+        <nav class="navbar navbar-expand-lg admin-top-nav shadow-sm sticky-top px-4">
+          <span class="navbar-brand fw-bold">Quản lý Dữ liệu Sản phẩm</span>
+          <div class="ms-auto">
+            <a href="admin_products.html" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Quay lại danh sách</a>
+          </div>
+        </nav>
+
+        <div id="main" class="admin-content">
+          
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode'); 
+            const productId = urlParams.get('id');
+            
+            const pageTitle = document.getElementById('pageTitle');
+            const btnSubmit = document.getElementById('btnSubmit');
+            const btnDelete = document.getElementById('btnDelete');
+            const imgInput = document.getElementById('prodImg');
+            const fileUpload = document.getElementById('fileUpload');
+            const imgPreview = document.getElementById('imgPreview');
+            const fileInfo = document.getElementById('fileInfo');
+
+            // 1. Xử lý Chế độ (Sửa/Thêm)
+            // if (mode === 'edit') {
+            //     pageTitle.innerText = 'Chỉnh sửa sản phẩm #' + (productId || '');
+            //     btnSubmit.innerText = 'Cập nhật thay đổi';
+            //     btnDelete.style.display = 'block';
+                
+            //     if(productId === '1') {
+            //         document.getElementById('prodName').value = "Bàn phím cơ không dây AULA F75";
+            //         document.getElementById('prodPrice').value = 1490000;
+            //         document.getElementById('prodCategory').value = "1";
+            //         document.getElementById('prodDesc').value = "3 mode có dây Type-C & không dây 2.4G & Bluetooth";
+            //         const sampleImg = "Bàn phím cơ không dây AULA F75 trắng xanh dương gradient.png";
+            //         imgInput.value = sampleImg;
+            //         fileInfo.innerText = "Tên tệp hiện tại: " + sampleImg;
+            //     }
+            // }
+
+            // // 2. Xử lý khi chọn tệp từ máy tính
+            // fileUpload.addEventListener('change', function(e) {
+            //     const file = e.target.files[0];
+            //     if (file) {
+            //         // Cập nhật tên tệp vào ô nhập liệu để lưu vào JSON
+            //         imgInput.value = file.name;
+            //         fileInfo.innerText = "Đã chọn tệp: " + file.name;
+
+            //         // Đọc tệp để hiển thị ảnh preview
+            //         const reader = new FileReader();
+            //         reader.onload = function(event) {
+            //             imgPreview.src = event.target.result;
+            //         };
+            //         reader.readAsDataURL(file);
+            //     }
+            // });
+
+            // 3. Xử lý khi nhập text (URL hoặc tên tệp) trực tiếp
+            // imgInput.addEventListener('input', function(e) {
+            //     const val = e.target.value.trim();
+            //     if (val) {
+            //         if (val.startsWith('http')) {
+            //             imgPreview.src = val;
+            //         }
+            //         fileInfo.innerText = "Sử dụng đường dẫn: " + val;
+            //     } else {
+            //         imgPreview.src = "https://placehold.co/400x400?text=Chưa+có+ảnh";
+            //         fileInfo.innerText = "Chưa có tệp nào được chọn";
+            //     }
+            // });
+
+            // // 4. Gửi Form
+            // document.getElementById('productMainForm').addEventListener('submit', function(e) {
+            //     e.preventDefault();
+            //     const formData = new FormData(e.target);
+            //     const data = Object.fromEntries(formData.entries());
+                
+            //     console.log("Dữ liệu JSON chuẩn bị lưu:", data);
+            //     // alert("Dữ liệu đã sẵn sàng! Tên tệp ảnh: " + data.image);
+            // });
+        });
+    </script>
+    <script type="module" src="dist/admin.js"></script>
+  </body>
+</html>

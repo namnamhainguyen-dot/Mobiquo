@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap 5.3.2 CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      xintegrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons 1.11.3 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- SEO Tags -->
+    <title>TechStore - Quản lý Nhóm Thiết bị</title>
+    <meta name="description" content="Khu vực quản trị danh mục sản phẩm công nghệ." />
+
+    <!-- Custom CSS -->
+    <style>
+      /* =================================================== */
+      /* START: CSS KẾ THỪA TỪ ADMIN SYSTEM */
+      /* =================================================== */
+      :root {
+  --color-accent: #00a169; 
+  --color-accent-darker: #007d52; 
+  --sidebar-width: 240px;
+  --sidebar-bg: #212529;
+}
+
+/* ĐỒNG BỘ TỶ LỆ CHỮ 14px */
+html { font-size: 14px; }
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+}
+
+/* SIDEBAR CỐ ĐỊNH */
+#admin-sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1030;
+  overflow-y: auto;
+}
+
+#admin-sidebar .nav-link {
+  color: #adb5bd;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid transparent;
+  transition: 0.2s;
+  text-decoration: none;
+}
+
+#admin-sidebar .nav-link.active {
+  color: #ffffff;
+  background-color: rgba(0, 161, 105, 0.15);
+  border-left-color: var(--color-accent);
+}
+
+#admin-sidebar .nav-link i { margin-right: 0.75rem; width: 20px; text-align: center; }
+#admin-sidebar .nav-link:hover { color: #fff; background-color: rgba(255, 255, 255, 0.05); }
+
+/* MAIN CONTENT ADJUSTMENT */
+main {
+  margin-left: var(--sidebar-width) !important;
+  width: calc(100% - var(--sidebar-width)) !important;
+  min-height: 100vh;
+}
+
+.admin-top-nav {
+  background: #fff;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0.75rem 1.5rem;
+}
+
+.admin-content { padding: 1.5rem 2rem; }
+
+/* CARD & TABLE STYLES ĐỒNG BỘ */
+.card { border: none; border-radius: 10px; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); margin-bottom: 1.5rem; }
+
+.admin-table thead th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #6c757d;
+  border-bottom: 1px solid #eee;
+  padding: 1rem;
+}
+
+/* ICON WRAPPER (Dành riêng cho danh mục) */
+.category-icon-wrapper {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e6f6f0;
+  color: var(--color-accent);
+  border-radius: 8px;
+  font-size: 1.2rem;
+}
+
+/* BUTTONS & BADGES */
+.btn-primary { background-color: var(--color-accent); border-color: var(--color-accent); }
+.btn-primary:hover { background-color: var(--color-accent-darker); border-color: var(--color-accent-darker); }
+
+.status-badge {
+  padding: 0.4em 0.8em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 50px;
+}
+
+.bg-success-light { background-color: #d1fae5; color: #065f46; }
+.bg-secondary-light { background-color: #f3f4f6; color: #374151; }
+
+@media (max-width: 991.98px) {
+  #admin-sidebar { margin-left: calc(-1 * var(--sidebar-width)); }
+  main { margin-left: 0 !important; width: 100% !important; }
+}
+    </style>
+  </head>
+  <body class="bg-light">
+    <div class="d-flex">
+      <!-- CỘT 1: SIDEBAR (MENU TRÁI) -->
+      <nav id="admin-sidebar" class="col-lg-2 col-md-3 d-none d-md-block p-0">
+        <div class="position-sticky pt-3">
+          <!-- Logo Cập Nhật -->
+          <a href="index.html" class="d-block px-3 mb-4 text-white text-decoration-none">
+            <img src="../public/img/MOBIQUO.png" alt="Logo" style="height: 32px;" onerror="this.src='https://placehold.co/120x32?text=Mobiquo'">
+          </a>
+
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="admin.html">
+                <i class="bi bi-speedometer2"></i>
+                Tổng Quan
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin_orders.html">
+                <i class="bi bi-receipt"></i>
+                Quản lý Đơn Hàng
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin_products.html">
+                <i class="bi bi-box-seam"></i>
+                Quản lý Sản Phẩm
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="admin_category.html">
+                <i class="bi bi-tags"></i>
+                Quản lý Danh Mục
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin_account.html">
+                <i class="bi bi-people"></i>
+                Quản lý Người Dùng
+              </a>
+            </li>
+          </ul>
+          <h6 class="sidebar-heading px-4 mt-4 mb-1 text-muted text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Tài khoản</h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item"><a class="nav-link" href="user_profile.html"><i class="bi bi-person-circle"></i> Admin (Bạn)</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-box-arrow-left"></i> Đăng xuất</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- CỘT 2: NỘI DUNG CHÍNH (HEADER + CONTENT) -->
+      <main class="col-lg-10 col-md-9 ms-sm-auto px-0">
+        <!-- HEADER (MENU NGANG) -->
+        <nav class="navbar navbar-expand-lg admin-top-nav shadow-sm sticky-top">
+          <div class="container-fluid">
+            <!-- Nút bật/tắt sidebar trên Mobile -->
+            <button
+              class="navbar-toggler d-md-none"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#admin-sidebar"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Form tìm kiếm -->
+            <form class="d-flex mx-auto" style="width: 400px">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Tìm kiếm nhóm sản phẩm..."
+                aria-label="Search"
+              />
+            </form>
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <i class="bi bi-person-circle fs-4 align-middle"></i>
+                  <span class="d-none d-lg-inline align-middle ms-1"
+                    >Chào, Admin</span
+                  >
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="index.html">Xem trang khách</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="index.html">Đăng xuất</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- NỘI DUNG CHÍNH CỦA TRANG -->
+        <div class="admin-content">
+          <!-- Tiêu đề trang & Nút Thêm -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 mb-0 fw-bold" style="color: var(--color-text-main)">
+              Quản lý Nhóm Sản phẩm
+            </h1>
+            <button class="btn btn-primary" onclick="resetAddModal()">
+               <i class="bi bi-plus-lg me-2"></i>Tạo danh mục mới
+            </button>
+          </div>
+          
+          <!-- Bộ lọc nhanh -->
+           <div class="card shadow-sm mb-4">
+             <div class="card-body">
+               <div class="row g-3">
+                 <div class="col-md-6">
+                    <select id="filterStatus" class="form-select">
+                      <option value="all">Tất cả trạng thái</option>
+                      <option value="true">Đang công khai</option>
+                      <option value="false">Đang tạm ẩn</option>
+                  </select>
+                 </div>
+                  <div class="col-md-6 text-md-end">
+                    <button class="btn btn-outline-secondary w-100 w-md-auto">
+                      <i class="bi bi-funnel me-1"></i> Lọc danh sách
+                    </button>
+                 </div>
+               </div>
+             </div>
+           </div>
+
+          <!-- Bảng Danh mục -->
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle admin-table">
+                  <thead class="table-light">
+                    <tr>
+                      <th scope="col" style="width: 80px;">Icon</th>
+                      <th scope="col">Tên nhóm thiết bị</th>
+                      <th scope="col">Mô tả chuyên môn</th>
+                      <th scope="col" class="text-center">Số Model</th>
+                      <th scope="col">Trạng thái</th>
+                      <th scope="col" class="text-end">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="category-list">
+                      <!-- Dữ liệu từ MongoDB sẽ được đổ vào đây -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+    
+    <!-- MODAL DÙNG CHUNG CHO THÊM VÀ SỬA -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="categoryModalTitle">Tạo nhóm thiết bị mới</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="categoryForm">
+              <div class="mb-3">
+                <label class="form-label">Tên nhóm thiết bị</label>
+                <input type="text" class="form-control" id="catName" placeholder="Ví dụ: Card màn hình (VGA)">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Mô tả chuyên môn</label>
+                <textarea class="form-control" id="catDesc" rows="3" placeholder="Mô tả tóm tắt các dòng thiết bị trong nhóm..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Biểu tượng / Icon (URL)</label>
+                <input type="text" class="form-control" id="catIcon" placeholder="https://...">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Trạng thái hiển thị</label>
+                <select class="form-select" id="catStatus">
+                  <option value="active">Công khai trên Web</option>
+                  <option value="hidden">Ẩn tạm thời</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-primary" id="btnSaveCategory">Lưu cấu hình</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5.3.2 JS Bundle CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      xintegrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module">
+        import { AdminCategoryController } from "./dist/controllers/AdminCategoryController.js";
+        const categoryCtrl = new AdminCategoryController();
+        categoryCtrl.init(); // Gọi hàm này để load dữ liệu và gán sự kiện window
+    </script>
+  </body>
+</html>
